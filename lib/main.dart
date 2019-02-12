@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
 
 
-
 void main() => runApp(MaterialApp(
 
         debugShowCheckedModeBanner: false,
@@ -50,9 +49,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
       backgroundColor: Colors.red[900],
       body: Center(
-<<<<<<< HEAD
-        child: SplashIcon(),
-=======
 
         child: Column(
 
@@ -71,19 +67,15 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               "Sano",
               style: TextStyle(
                 fontSize: 50.0,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.normal,
                 color: Colors.white,
               ),
 
             ),
           ],
         )
->>>>>>> 90a1987fd8e1a9992930fa04a5166c9f6f10cc1f
       ),
-
       
-
     );
   }
   @override
