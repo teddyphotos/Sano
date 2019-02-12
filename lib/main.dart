@@ -67,8 +67,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               "Sano",
               style: TextStyle(
                 fontSize: 50.0,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.normal,
                 color: Colors.white,
               ),
 
