@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 void main() => runApp(MaterialApp(
 
   theme:
@@ -30,10 +31,11 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
 
       body: Center(
-
         child: SplashIcon(),
       ),
+
       
+
     );
   }
 }
