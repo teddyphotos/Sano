@@ -10,8 +10,9 @@ class mapScreen extends StatefulWidget {
 }
 
 class _mapScreenState extends State<mapScreen> {
+  Location location = new Location();
   GoogleMapController mapController;
-  final LatLng _center = const LatLng(26.842248, 75.562783);
+  final LatLng _center = const LatLng(13.784307, 80.014821);
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
@@ -24,6 +25,7 @@ class _mapScreenState extends State<mapScreen> {
           GoogleMap(
             onMapCreated: _onMapCreated,
             options: GoogleMapOptions(
+              trackCameraPosition: true,
                 cameraPosition: CameraPosition(target: _center, zoom: 11.0)),
           ),
           Padding(
@@ -34,6 +36,7 @@ class _mapScreenState extends State<mapScreen> {
                 elevation: 8.0,
                 onPressed: () {
                   print("Button Pressed");
+                  _animateToUser();
                 },
                 materialTapTargetSize: MaterialTapTargetSize.padded,
                 backgroundColor: Colors.redAccent,
@@ -49,5 +52,21 @@ class _mapScreenState extends State<mapScreen> {
     );
   }
 
-  void initPlatformState() {}
+  _animateToUser() async{
+    var pos = await location.getLocation();
+    mapController.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+
+            target: LatLng(pos.latitude, pos.longitude),
+            zoom: 16.0
+
+        )
+    ));
+    mapController.addMarker(
+        MarkerOptions(
+            position: LatLng(pos.latitude, pos.longitude),
+            icon: BitmapDescriptor.defaultMarker
+        )
+    );
+  }
 }
