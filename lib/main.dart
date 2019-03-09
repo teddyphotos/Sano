@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
+import 'mapScreen.dart';
+import 'dart:async';
 
 
 
@@ -33,6 +35,13 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
   void initState() {
     super.initState();
+    Future.delayed(Duration(milliseconds: 1500),
+     () {
+       Navigator.push(context, MaterialPageRoute(builder: (context) => mapScreen(),
+       ),     
+       );
+     },
+    );
     controller = AnimationController(duration: Duration(seconds: 1),vsync: this);
     animation = Tween<double>(begin: 0 , end: 100).animate(controller)
     ..addListener((){
@@ -85,3 +94,4 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     super.dispose();
   }
 }
+
