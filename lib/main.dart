@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
-import 'mapScreen.dart';
+import 'home.dart';
 import 'dart:async';
 
 
@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     super.initState();
     Future.delayed(Duration(milliseconds: 1500),
      () {
-       Navigator.push(context, MaterialPageRoute(builder: (context) => mapScreen(),
+       Navigator.push(context, MaterialPageRoute(builder: (context) => Home(),
        ),     
        );
      },
