@@ -1,98 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/animation.dart';
-import 'home.dart';
-import 'dart:async';
-import 'home.dart';
-
-
-
+import 'mapScreen.dart';
 void main() => runApp(MaterialApp(
 
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: Home(),
 ));
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
 
-class SplashIcon extends StatelessWidget {
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    var assetsImage = AssetImage('assets/images/icon.png');
-    var image = Image(image: assetsImage,height: 80.0,width: 80.0,);
-    return Container(
-      child: image,    
-    );
-  }
-}
-
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin{
-  Animation<double> animation;
-  AnimationController controller;
-
-  @override
-
-  void initState() {
-    super.initState();
-    Future.delayed(Duration(milliseconds: 1500),
-     () {
-       Navigator.push(context, MaterialPageRoute(builder: (context) => Home(),
-       ),     
-       );
-     },
-    );
-    controller = AnimationController(duration: Duration(seconds: 1),vsync: this);
-    animation = Tween<double>(begin: 0 , end: 100).animate(controller)
-    ..addListener((){
-
+    int _selectedIndex = 1;
+    final List<Widget> _children = [mapScreen(), mapScreen(), mapScreen()];
+    void _onTabTapped(int index) {
       setState(() {
-        
-      }); 
-    });
-    controller.forward();
-  }
+        _selectedIndex = index;
+      });
+    }
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-
-      backgroundColor: Colors.red[900],
-      body: Center(
-
-        child: Column(
-
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          children: <Widget>[
-
-            Container(
-              height: animation.value,
-              width: animation.value,
-              child: SplashIcon(),
-
-            ),
-            Text(
-              "Sano",
-              style: TextStyle(
-                fontSize: 50.0,
-                fontStyle: FontStyle.normal,
-                color: Colors.white,
-              ),
-
-            ),
-          ],
-        )
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text("Sano: Emergency Help"),
+        backgroundColor: Colors.redAccent,
       ),
-      
+      body: _children[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(Icons.edit_location), title: Text("Location")),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.favorite), title: Text("Get Ambulance")),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle), title: Text("Options")),
+        ],
+        fixedColor: Colors.redAccent,
+        currentIndex: _selectedIndex,
+        onTap: _onTabTapped,
+      ),
     );
   }
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
 }
-
