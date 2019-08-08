@@ -24,6 +24,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: "^0.6.1"
+flutter_icons:
+  image_path: "assets/images/ic_launcher.png"
+  android: true
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -32,6 +37,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/icon.png
+    - assets/images/ic_launcher.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
