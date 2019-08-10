@@ -99,6 +99,7 @@ class _mapScreenState extends State<mapScreen> {
         },
         myLocationEnabled: true,
         initialCameraPosition: _initialCamera,
+        myLocationButtonEnabled: true,
       ),
     );
   }
