@@ -1,16 +1,30 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'mapScreen.dart';
-void main() => runApp(MaterialApp(
+import 'package:permission_handler/permission_handler.dart';
 
-        debugShowCheckedModeBanner: false,
-        home: Home(),
-));
+void main() => runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Home(),
+    ));
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  PermissionStatus _status;
+
+  @override
+  void initState() {
+    super.initState();
+    PermissionHandler()
+        .checkPermissionStatus(PermissionGroup.locationWhenInUse)
+        .then(_updateStatus);
+  }
+
   @override
   Widget build(BuildContext context) {
     int _selectedIndex = 1;
@@ -42,5 +56,24 @@ class _HomeState extends State<Home> {
         onTap: _onTabTapped,
       ),
     );
+  }
+
+  void _updateStatus(PermissionStatus status) {
+    if (status != _status) {
+      _askLocationPermission();
+      setState(() {
+        _status = status;
+      });
+    }
+  }
+
+  void _askLocationPermission() {
+    PermissionHandler().requestPermissions(
+        [PermissionGroup.locationWhenInUse]).then(_onStatusRequested);
+  }
+
+  void _onStatusRequested(Map<PermissionGroup, PermissionStatus> statuses) {
+    final status = statuses[PermissionGroup.locationWhenInUse];
+    _updateStatus(status);
   }
 }

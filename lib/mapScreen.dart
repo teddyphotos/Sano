@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-
+import 'package:location/location.dart';
+import 'dart:async';
+import 'package:flutter/services.dart';
 
 class mapScreen extends StatefulWidget {
   @override
@@ -9,23 +10,95 @@ class mapScreen extends StatefulWidget {
 }
 
 class _mapScreenState extends State<mapScreen> {
-  GoogleMapController mapController;
+  LocationData _startLocation;
+  LocationData _currentLocation;
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  StreamSubscription<LocationData> _locationSubscription;
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+  Location _locationService = new Location();
+  bool _permission = false;
+  String error;
+
+  bool currentWidget = true;
+
+  Completer<GoogleMapController> _controller = Completer();
+  static final CameraPosition _initialCamera = CameraPosition(
+    target: LatLng(0, 0),
+    zoom: 4,
+  );
+
+  CameraPosition _currentCameraPosition;
+
+  GoogleMap googleMap;
+
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
+  initPlatformState() async {
+    await _locationService.changeSettings(
+        accuracy: LocationAccuracy.HIGH, interval: 1000);
+
+    LocationData location;
+
+    try {
+      bool serviceStatus = await _locationService.serviceEnabled();
+      print("Service status: $serviceStatus");
+      if (serviceStatus) {
+        _permission = await _locationService.requestPermission();
+        print("Permission: $_permission");
+
+        if (_permission) {
+          location = await _locationService.getLocation();
+          _locationSubscription = _locationService
+              .onLocationChanged()
+              .listen((LocationData result) async {
+            _currentCameraPosition = CameraPosition(
+                target: LatLng(result.latitude, result.longitude), zoom: 16);
+
+            final GoogleMapController controller = await _controller.future;
+            controller.animateCamera(
+                CameraUpdate.newCameraPosition(_currentCameraPosition));
+            if (mounted) {
+              setState(() {
+                _currentLocation = result;
+              });
+            }
+          });
+        }
+      } else {
+        bool serviceStatusResult = await _locationService.requestService();
+        print("Service status activated after request: $serviceStatusResult");
+        if (serviceStatusResult) {
+          initPlatformState();
+        }
+      }
+    } on PlatformException catch (e) {
+      print(e);
+      if (e.code == 'PERMISSION_DENIED') {
+        error = e.message;
+      } else if (e.code == 'SERVICE_STATUS_ERROR') {
+        error = e.message;
+      }
+      location = null;
+    }
+
+    setState(() {
+      _startLocation = location;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
-        onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-              target: _center,
-              zoom: 11.0
-          ),
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+        myLocationEnabled: true,
+        initialCameraPosition: _initialCamera,
       ),
     );
   }

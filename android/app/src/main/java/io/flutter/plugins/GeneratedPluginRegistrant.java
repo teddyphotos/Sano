@@ -2,6 +2,8 @@ package io.flutter.plugins;
 
 import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugins.googlemaps.GoogleMapsPlugin;
+import com.lyokone.location.LocationPlugin;
+import com.baseflow.permissionhandler.PermissionHandlerPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -12,6 +14,8 @@ public final class GeneratedPluginRegistrant {
       return;
     }
     GoogleMapsPlugin.registerWith(registry.registrarFor("io.flutter.plugins.googlemaps.GoogleMapsPlugin"));
+    LocationPlugin.registerWith(registry.registrarFor("com.lyokone.location.LocationPlugin"));
+    PermissionHandlerPlugin.registerWith(registry.registrarFor("com.baseflow.permissionhandler.PermissionHandlerPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {
