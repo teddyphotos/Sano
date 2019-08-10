@@ -16,6 +16,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   PermissionStatus _status;
+  int _selectedIndex = 1;
+
 
   @override
   void initState() {
@@ -27,7 +29,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    int _selectedIndex = 1;
     final List<Widget> _children = [mapScreen(), mapScreen(), mapScreen()];
     void _onTabTapped(int index) {
       setState(() {
