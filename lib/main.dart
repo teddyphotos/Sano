@@ -1,5 +1,6 @@
 import 'dart:async';
-
+import 'options.dart';
+import 'legalStuff.dart';
 import 'package:flutter/material.dart';
 import 'mapScreen.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -29,7 +30,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _children = [mapScreen(), mapScreen(), mapScreen()];
+    final List<Widget> _children = [legalStuff(), mapScreen(), options()];
     void _onTabTapped(int index) {
       setState(() {
         _selectedIndex = index;
@@ -46,7 +47,7 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.edit_location), title: Text("Location")),
+              icon: Icon(Icons.bubble_chart), title: Text("Developer")),
           BottomNavigationBarItem(
               icon: Icon(Icons.favorite), title: Text("Get Ambulance")),
           BottomNavigationBarItem(
