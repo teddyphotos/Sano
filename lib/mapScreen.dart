@@ -12,6 +12,7 @@ class mapScreen extends StatefulWidget {
 class _mapScreenState extends State<mapScreen> {
   LocationData _startLocation;
   LocationData _currentLocation;
+  bool stateDestroyed = false;
 
   StreamSubscription<LocationData> _locationSubscription;
 
@@ -35,11 +36,12 @@ class _mapScreenState extends State<mapScreen> {
   void initState() {
     super.initState();
     initPlatformState();
+    stateDestroyed = false;
   }
 
   initPlatformState() async {
     await _locationService.changeSettings(
-        accuracy: LocationAccuracy.HIGH, interval: 1000);
+        accuracy: LocationAccuracy.HIGH, interval: 2000);
 
     LocationData location;
 
@@ -58,14 +60,21 @@ class _mapScreenState extends State<mapScreen> {
             _currentCameraPosition = CameraPosition(
                 target: LatLng(result.latitude, result.longitude), zoom: 16);
 
-            final GoogleMapController controller = await _controller.future;
-            controller.animateCamera(
-                CameraUpdate.newCameraPosition(_currentCameraPosition));
-            if (mounted) {
-              setState(() {
-                _currentLocation = result;
-              });
+            if(stateDestroyed!=true){
+              final GoogleMapController controller = await _controller.future;
+              controller.animateCamera(
+                  CameraUpdate.newCameraPosition(_currentCameraPosition));
+              if (mounted) {
+                setState(() {
+                  _currentLocation = result;
+                });
+              }
+
             }
+
+
+
+
           });
         }
       } else {
@@ -88,6 +97,13 @@ class _mapScreenState extends State<mapScreen> {
     setState(() {
       _startLocation = location;
     });
+  }
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    stateDestroyed = true;
   }
 
   @override
