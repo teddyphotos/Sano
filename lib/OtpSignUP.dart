@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'OtpSignIN.dart';
+import 'profile.dart';
 
-class LoginPage extends StatelessWidget {
+class OtpSingUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -14,12 +14,11 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
               child: new TextField(
                 keyboardType: TextInputType.number,
-                maxLength: 10,
-                decoration: new InputDecoration(labelText: "Mobile Number"),
+                maxLength: 6,
+                decoration: new InputDecoration(labelText: "Enter OTP"),
               ),
             ),
             new SizedBox(
@@ -37,7 +36,7 @@ class LoginPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => OtpSingIn(),
+                              builder: (context) => Profile(),
                             ));
                       },
                       child: new Container(
@@ -46,7 +45,7 @@ class LoginPage extends StatelessWidget {
                           decoration: new BoxDecoration(
                               color: Colors.red[400],
                               borderRadius: new BorderRadius.circular(9.0)),
-                          child: new Text("Request For OTP",
+                          child: new Text("Verify OTP",
                               style: new TextStyle(
                                   fontSize: 20.0, color: Colors.white))),
                     ),

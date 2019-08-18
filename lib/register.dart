@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'OtpSignIN.dart';
+import 'OtpSignUP.dart';
 
-class LoginPage extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -14,8 +14,7 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
               child: new TextField(
                 keyboardType: TextInputType.number,
                 maxLength: 10,
@@ -37,7 +36,7 @@ class LoginPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => OtpSingIn(),
+                              builder: (context) => OtpSingUp(),
                             ));
                       },
                       child: new Container(
@@ -53,7 +52,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 )
               ],
-            )
+            ),
           ],
         ),
       ),

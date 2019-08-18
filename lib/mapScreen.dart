@@ -60,7 +60,7 @@ class _mapScreenState extends State<mapScreen> {
             _currentCameraPosition = CameraPosition(
                 target: LatLng(result.latitude, result.longitude), zoom: 16);
 
-            if(stateDestroyed!=true){
+            if (stateDestroyed != true) {
               final GoogleMapController controller = await _controller.future;
               controller.animateCamera(
                   CameraUpdate.newCameraPosition(_currentCameraPosition));
@@ -69,12 +69,7 @@ class _mapScreenState extends State<mapScreen> {
                   _currentLocation = result;
                 });
               }
-
             }
-
-
-
-
           });
         }
       } else {
@@ -98,7 +93,6 @@ class _mapScreenState extends State<mapScreen> {
       _startLocation = location;
     });
   }
-
 
   @override
   void deactivate() {
