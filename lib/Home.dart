@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'dart:async';
 import 'legalStuff.dart';
 import 'mapScreen.dart';
+import 'Account.dart';
 
 
 class Home extends StatefulWidget {
@@ -45,8 +45,36 @@ class _HomeState extends State<Home> {
         leading: Container(),
       ),
       drawer: Drawer(
-        child: DrawerHeader(
-          child: Text("Yo"),
+        child: ListView(
+          children: <Widget>[
+            GestureDetector(
+              onTap: (){
+                Navigator.of(context).pop();
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Account()
+                ));
+              },
+              child: UserAccountsDrawerHeader(
+                 accountName: Text(
+                   "Tanmay Thareja",
+                   style: TextStyle(fontSize: 28.0,fontWeight: FontWeight.bold),
+                 ),
+                 accountEmail: Text("tharejatanmay@gmail.com"),
+                 currentAccountPicture: CircleAvatar(
+                   backgroundColor: Colors.redAccent,
+                   child: Text("T", style:TextStyle(fontSize:40.0)),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text("Item 1"),
+              trailing: Icon(Icons.arrow_forward),
+            ),
+            ListTile(
+              title: Text("Item 2"),
+              trailing: Icon(Icons.arrow_forward),
+            ),
+          ],
         ),
       ),
       body: _children[_selectedIndex],
