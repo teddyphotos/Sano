@@ -4,16 +4,18 @@ import 'legalStuff.dart';
 import 'mapScreen.dart';
 import 'Account.dart';
 
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  String bookingButtonStatus;
+  bool bookingStatus = false;
+
   PermissionStatus _status;
   int _selectedIndex = 1;
-  final GlobalKey<ScaffoldState>_scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -29,40 +31,66 @@ class _HomeState extends State<Home> {
     void _onTabTapped(int index) {
       setState(() {
         _selectedIndex = index;
-        if(index==2)
-        {
+        if (index == 2) {
           _scaffoldKey.currentState.openDrawer();
-          index=1;
+          index = 1;
           _onTabTapped(index);
         }
       });
     }
+    if(bookingStatus){
+      bookingButtonStatus = "Cancel Booking";
+
+    }else{
+      bookingButtonStatus = "Book Now";
+
+    }
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        leading: Container(),
+      appBar: CustomAppBar(
+        appBar: AppBar(
+          title: Text(bookingButtonStatus),
+          backgroundColor: Colors.redAccent,
+          leading: new Container(),
+
+
+        ),
+        onTap: (){
+          if(bookingStatus){
+            print("Stopped Booking");
+            bookingStatus = false;
+
+          }else{
+            print("Started Booking");
+            bookingStatus = true;
+          }
+
+
+          setState(() {
+
+          });
+        },
       ),
       backgroundColor: Colors.white,
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Account()
-                ));
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Account()));
               },
               child: UserAccountsDrawerHeader(
-                 accountName: Text(
-                   "Tanmay Thareja",
-                   style: TextStyle(fontSize: 28.0,fontWeight: FontWeight.bold),
-                 ),
-                 accountEmail: Text("tharejatanmay@gmail.com"),
-                 currentAccountPicture: CircleAvatar(
-                   backgroundColor: Colors.redAccent,
-                   child: Text("T", style:TextStyle(fontSize:40.0)),
+                accountName: Text(
+                  "Tanmay Thareja",
+                  style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
+                ),
+                accountEmail: Text("tharejatanmay@gmail.com"),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.redAccent,
+                  child: Text("T", style: TextStyle(fontSize: 40.0)),
                 ),
               ),
             ),
@@ -78,14 +106,8 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: _children[_selectedIndex],
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.red[400],
-        icon: Icon(Icons.local_hospital),
-        label: Text("Emergency"),
-      ),
 
       bottomNavigationBar: BottomNavigationBar(
-
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Icons.bubble_chart), title: Text("Developer")),
@@ -120,4 +142,25 @@ class _HomeState extends State<Home> {
     final status = statuses[PermissionGroup.locationWhenInUse];
     _updateStatus(status);
   }
+
+
+
+
+}
+
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final VoidCallback onTap;
+  final AppBar appBar;
+
+  const CustomAppBar({Key key, this.onTap, this.appBar}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(onTap: onTap, child: appBar);
+
+  }
+
+  // TODO: implement preferredSize
+  @override
+  Size get preferredSize => new Size.fromHeight(kToolbarHeight);
 }
