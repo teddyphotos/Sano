@@ -8,7 +8,7 @@ class OtpSingIn extends StatelessWidget {
       appBar: new AppBar(
           backgroundColor: Colors.grey[50],
           elevation: 0.0,
-          iconTheme: new IconThemeData(color: Colors.white)),
+          iconTheme: new IconThemeData(color: Colors.redAccent)),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

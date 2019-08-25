@@ -40,10 +40,10 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: Container(),
       ),
+      backgroundColor: Colors.white,
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
