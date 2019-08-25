@@ -16,7 +16,7 @@ class ProfileState extends State<Profile> {
       appBar: new AppBar(
           backgroundColor: Colors.grey[50],
           elevation: 0.0,
-          iconTheme: new IconThemeData(color: Colors.white)),
+          iconTheme: new IconThemeData(color: Colors.redAccent)),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -56,6 +56,9 @@ class ProfileState extends State<Profile> {
                     ))
               ],
             ),
+            new SizedBox(
+              height: 20.0,
+            ),
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -82,6 +85,9 @@ class ProfileState extends State<Profile> {
                 ),
               ],
             ),
+            new SizedBox(
+              height: 20.0,
+            ),
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -101,8 +107,12 @@ class ProfileState extends State<Profile> {
                 ),
               ],
             ),
+            new SizedBox(
+              height: 140.0,
+            ),
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
+
               children: <Widget>[
                 Expanded(
                   child: Padding(

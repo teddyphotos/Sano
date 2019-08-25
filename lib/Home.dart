@@ -41,9 +41,6 @@ class _HomeState extends State<Home> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: Container(),
-      ),
       drawer: Drawer(
         child: DrawerHeader(
           child: Text("Yo"),
