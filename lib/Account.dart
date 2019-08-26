@@ -6,10 +6,27 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
-  bool textfield;
+  bool editing=false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          if(editing==false)
+          {
+            setState(() {
+              editing=true;
+            });
+          }
+          else if(editing==true)
+          {
+            setState(() {
+              editing=false;
+            });
+          }
+       },
+       child: editing?Icon(Icons.check):Icon(Icons.edit),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.redAccent,
         elevation: 0.0,
@@ -33,7 +50,12 @@ class _AccountState extends State<Account> {
               child: ListTile(
                 leading: Icon(Icons.phone,color:Colors.teal),
                 title: TextField(
-                  enabled: false,
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.teal,
+                  ),
+                  enabled: editing,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: "9971612559",
@@ -53,7 +75,12 @@ class _AccountState extends State<Account> {
               child: ListTile(
                 leading: Icon(Icons.mail,color:Colors.teal),
                 title: TextField(
-                  enabled: false,
+                  keyboardType: TextInputType.emailAddress,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.teal,
+                  ),
+                  enabled: editing,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: "tharejatanmay@gmail.com",
@@ -73,7 +100,11 @@ class _AccountState extends State<Account> {
               child: ListTile(
                 leading: Icon(Icons.account_box,color:Colors.teal),
                 title: TextField(
-                  enabled: false,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.teal,
+                  ),
+                  enabled: editing,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: "Tanmay Thareja",
@@ -93,7 +124,11 @@ class _AccountState extends State<Account> {
               child: ListTile(
                 leading: Icon(Icons.favorite,color:Colors.teal),
                 title: TextField(
-                  enabled: false,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.teal,
+                  ),
+                  enabled: editing,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: "B+",
