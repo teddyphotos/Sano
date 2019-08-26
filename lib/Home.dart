@@ -55,23 +55,30 @@ class _HomeState extends State<Home> {
                 ));
               },
               child: UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.redAccent,
+                ),
                  accountName: Text(
                    "Tanmay Thareja",
                    style: TextStyle(fontSize: 28.0,fontWeight: FontWeight.bold),
                  ),
                  accountEmail: Text("tharejatanmay@gmail.com"),
-                 currentAccountPicture: CircleAvatar(
-                   backgroundColor: Colors.redAccent,
-                   child: Text("T", style:TextStyle(fontSize:40.0)),
-                ),
               ),
             ),
             ListTile(
-              title: Text("Item 1"),
+              title: Text("Legal"),
               trailing: Icon(Icons.arrow_forward),
             ),
             ListTile(
-              title: Text("Item 2"),
+              title: Text("About Us"),
+              trailing: Icon(Icons.arrow_forward),
+            ),
+            ListTile(
+              title: Text("Contact Us"),
+              trailing: Icon(Icons.arrow_forward),
+            ),
+            ListTile(
+              title: Text("Log Out"),
               trailing: Icon(Icons.arrow_forward),
             ),
           ],
@@ -92,7 +99,7 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
               icon: Icon(Icons.favorite), title: Text("Get Ambulance")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle), title: Text("Options")),
+              icon: Icon(Icons.settings), title: Text("Options")),
         ],
         fixedColor: Colors.redAccent,
         currentIndex: _selectedIndex,
