@@ -50,10 +50,18 @@ class ProfileState extends State<Profile> {
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new Text("Sample Number: 9988776655",
-                    style: new TextStyle(
-                      fontSize: 20.0,
-                    ))
+                new Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 20.0, right: 20.0, top: 10.0),
+                    child: new TextField(
+                      decoration: new InputDecoration(
+                      hintText: "9988776655"),
+                      enabled: false,
+                    ),
+                  ),
+                ),
+
               ],
             ),
             new SizedBox(
